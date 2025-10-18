@@ -1,57 +1,64 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
+  const location = useLocation();
+
   const navStyle = {
     padding: "1rem 2rem",
-    backgroundColor: "#1e1e1e", // dark-neutral background
+    backgroundColor: "rgba(30,30,30,0.85)",
+    backdropFilter: "blur(10px)",
     color: "#fff",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    boxShadow: "0 2px 10px rgba(0,0,0,0.5)",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
   };
 
   const linkStyle = {
-    color: "#ccc", // light grey links
+    color: "#ccc",
     textDecoration: "none",
-    marginLeft: "1rem",
     transition: "all 0.3s ease",
+    position: "relative",
   };
 
   const linkHover = {
-    color: "#fff", // white on hover
+    color: "#fff",
+    transform: "scale(1.05)",
+  };
+
+  const activeStyle = {
+    color: "#fff",
+    fontWeight: 600,
+    borderBottom: "2px solid #4a6cf7", // subtle bottom border for active link
+    paddingBottom: "2px",
   };
 
   return (
     <nav style={navStyle}>
       <div style={{ fontWeight: "bold", fontSize: "1.5rem" }}>💰 Savify</div>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <Link
-          to="/"
-          style={linkStyle}
-          onMouseOver={(e) => (e.target.style.color = linkHover.color)}
-          onMouseOut={(e) => (e.target.style.color = linkStyle.color)}
-        >
-          Home
-        </Link>
-        <Link
-          to="/dashboard"
-          style={linkStyle}
-          onMouseOver={(e) => (e.target.style.color = linkHover.color)}
-          onMouseOut={(e) => (e.target.style.color = linkStyle.color)}
-        >
-          Dashboard
-        </Link>
-        <Link
-          to="/login"
-          style={linkStyle}
-          onMouseOver={(e) => (e.target.style.color = linkHover.color)}
-          onMouseOut={(e) => (e.target.style.color = linkStyle.color)}
-        >
-          Login/Signup
-        </Link>
+      <div style={{ display: "flex", gap: "1.8rem", alignItems: "center" }}>
+        {["/", "/dashboard", "/login"].map((path, index) => {
+          const names = ["Home", "Dashboard", "Login/Signup"];
+          return (
+            <Link
+              key={index}
+              to={path}
+              style={location.pathname === path ? {...linkStyle, ...activeStyle} : linkStyle}
+              onMouseOver={(e) => {
+                e.target.style.color = linkHover.color;
+                e.target.style.transform = linkHover.transform;
+              }}
+              onMouseOut={(e) => {
+                e.target.style.color = location.pathname === path ? "#fff" : "#ccc";
+                e.target.style.transform = "scale(1)";
+              }}
+            >
+              {names[index]}
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );

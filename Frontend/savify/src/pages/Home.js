@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaChartLine, FaWallet, FaLightbulb } from "react-icons/fa";
-import "./Home.css"; // We'll add styling here
+import "./Home.css";
 
 function Home() {
   return (
@@ -18,12 +18,19 @@ function Home() {
             <button className="cta-button">Get Started</button>
           </Link>
         </div>
+
         <div className="hero-animation">
-          {/* Floating shapes for subtle animation */}
-          <div className="circle circle1"></div>
-          <div className="circle circle2"></div>
-          <div className="circle circle3"></div>
+            <div className="circle circle1"></div>
+            <div className="circle circle2"></div>
+            <div className="circle circle3"></div>
+            <div className="circle circle4"></div>
+            <div className="circle circle5"></div>
+            <div className="triangle triangle1"></div>
+            <div className="triangle triangle2"></div>
+            <div className="square square1"></div>
+            <div className="square square2"></div>
         </div>
+
       </section>
 
       {/* Features Section */}
