@@ -21,6 +21,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} /> {/* add this */}
+        {/* <Route path  */}
       </Routes>
 
       {/* Include chatbot here so it floats on all pages */}
