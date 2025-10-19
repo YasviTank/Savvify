@@ -54,14 +54,18 @@ def simulate():
 def index():
     return send_file('index.html')
 
-@app.route('/data')
+@app.route('/process-data', methods=["POST"])
 def data():
+    data = request.get_json()
+    names = data.get("names", [])
+    percentages = data.get("percentages", [])
+
     chart_data_no_debt = {
         "labels": names,
-        "values": percents
+        "values": percentages
     }
-    return jsonify(chart_data_no_debt)
 
+    return jsonify(chart_data_no_debt)
 
 if __name__ == "__main__":
     app.run(debug=True)
