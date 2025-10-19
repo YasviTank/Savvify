@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from wenyepython import main
 import requests
 import os
 from flask_cors import CORS
@@ -12,29 +11,23 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.route('/upload', methods=['POST'])
 def upload_files():
-    file = request.files.get("file")
-    if not file:
-        return jsonify({"error": "No file uploaded"}), 400
+    if 'files' not in request.files:
+        return jsonify({"error": "No files part in request"}), 400
 
-    filepath = os.path.join(UPLOAD_FOLDER, file.filename)
-    file.save(filepath)
+    files = request.files.getlist('files')
+    saved_files = []
 
-    # 2️⃣ Run your PDF analyzer
-    try:
-        names, percentages = main(filepath)  # your analyzer returns two lists
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    for file in files:
+        if file.filename == '':
+            continue
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+        saved_files.append(file.filename)
 
-    # 3️⃣ Send lists to Flask B (running on port 5001)
-    try:
-        payload = {"names": names, "percentages": percentages}
-        response = requests.post("http://localhost:5001/process-data", json=payload)
-        graph_json = response.json()
-    except Exception as e:
-        return jsonify({"error": f"Failed to contact Flask B: {str(e)}"}), 500
-
-    # 4️⃣ Return Flask B’s graph data to frontend
-    return jsonify(graph_json)
+    return jsonify({
+        "message": f"{len(saved_files)} file(s) uploaded successfully.",
+        "files": saved_files
+    })
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 @app.route('/simulate', methods=['GET'])
