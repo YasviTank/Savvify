@@ -180,3 +180,12 @@ body {
     color: #e0e0e0; /* light text for contrast */
   }
   
+  .simulation-chart {
+    margin: 50px auto;
+    text-align: center;
+  }
+  .simulation-chart canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  

@@ -1,9 +1,62 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaChartLine, FaWallet, FaLightbulb } from "react-icons/fa";
+import Chart from "chart.js/auto";
 import "./Home.css";
 
 function Home() {
+  const chartRef = useRef(null);
+  const chartInstance = useRef(null);
+
+  useEffect(() => {
+    const runSimulation = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/simulate"); // Flask backend
+        const data = await response.json();
+
+        // Destroy previous chart
+        if (chartInstance.current) chartInstance.current.destroy();
+
+        const ctx = chartRef.current.getContext("2d");
+        chartInstance.current = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: data.months,
+            datasets: [
+              {
+                label: "Savings",
+                data: data.savings,
+                borderColor: "green",
+                fill: false,
+              },
+              {
+                label: "Debt",
+                data: data.debt,
+                borderColor: "red",
+                fill: false,
+              },
+              {
+                label: "Monthly Payment",
+                data: data.monthly_payments,
+                borderColor: "blue",
+                fill: false,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { position: "top" } },
+            scales: { y: { beginAtZero: true } },
+          },
+        });
+      } catch (err) {
+        console.error("Error fetching simulation data:", err);
+      }
+    };
+
+    runSimulation();
+  }, []);
+
   return (
     <div className="home-container">
       {/* Hero Section */}
@@ -20,17 +73,22 @@ function Home() {
         </div>
 
         <div className="hero-animation">
-            <div className="circle circle1"></div>
-            <div className="circle circle2"></div>
-            <div className="circle circle3"></div>
-            <div className="circle circle4"></div>
-            <div className="circle circle5"></div>
-            <div className="triangle triangle1"></div>
-            <div className="triangle triangle2"></div>
-            <div className="square square1"></div>
-            <div className="square square2"></div>
+          <div className="circle circle1"></div>
+          <div className="circle circle2"></div>
+          <div className="circle circle3"></div>
+          <div className="circle circle4"></div>
+          <div className="circle circle5"></div>
+          <div className="triangle triangle1"></div>
+          <div className="triangle triangle2"></div>
+          <div className="square square1"></div>
+          <div className="square square2"></div>
         </div>
+      </section>
 
+      {/* Chart Section */}
+      <section className="chart-section">
+        <h2>Debt & Savings Simulation</h2>
+        <canvas ref={chartRef} width="600" height="400"></canvas>
       </section>
 
       {/* Features Section */}
