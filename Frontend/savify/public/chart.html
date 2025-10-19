@@ -62,7 +62,10 @@
         }
 
         // Run simulation immediately when page loads
-        window.onload = runSimulation;
+        window.onload = function(){
+            runSimulation();
+            setInterval(runSimulation, 3000);
+        };
     </script>
 </body>
 </html> 
