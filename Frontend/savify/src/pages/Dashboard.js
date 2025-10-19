@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
+import card from "./card.png";
+import creditscore from "./creditsc.png";
+
 
 function Dashboard() {
   const [files, setFiles] = useState([]);
@@ -28,13 +31,36 @@ function Dashboard() {
       if (!response.ok) throw new Error("Upload failed");
   
       const data = await response.json();
-      alert(data.message);
-      console.log("Uploaded files:", data.files);
+      console.log("Response data:", data);
+  
+      // Assuming first file’s data for chart
+      const firstFileKey = Object.keys(data.data)[0];
+      const fileData = data.data[firstFileKey];
+  
+      setChartData({
+        labels: fileData.categories,
+        datasets: [
+          {
+            label: "Spending Breakdown",
+            data: fileData.percentages,
+            backgroundColor: [
+              "#4a6cf7",
+              "#ff6384",
+              "#ffcd56",
+              "#4bc0c0",
+              "#9966ff",
+              "#ff9f40",
+            ],
+          },
+        ],
+      });
+  
     } catch (error) {
       console.error("Error uploading:", error);
       alert("Upload failed! Check backend connection.");
     }
   };
+  
   
   return (
     <div
@@ -50,6 +76,44 @@ function Dashboard() {
       }}
     >
       <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>Dashboard</h1>
+      <div
+  style={{
+    display: "flex",
+    gap: "2rem",
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap", // makes it responsive on smaller screens
+    marginBottom: "2rem",
+  }}
+>
+  <img
+    src={card}
+    alt="Finance Card"
+    style={{
+      width: "320px",
+      height: "200px",
+      objectFit: "cover",
+      borderRadius: "16px",
+      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.4)",
+      transition: "transform 0.3s ease",
+      cursor: "pointer",
+    }}
+  />
+  <img
+    src={creditscore}
+    alt="Credit Score"
+    style={{
+      width: "200px",
+      height: "120px",
+      objectFit: "cover",
+      borderRadius: "16px",
+      // boxShadow: "0 4px 20px rgba(0, 0, 0, 0.4)",
+      transition: "transform 0.3s ease",
+      cursor: "pointer",
+    }}
+  />
+</div>
+
 
       <div
         style={{
@@ -63,7 +127,7 @@ function Dashboard() {
           textAlign: "center",
         }}
       >
-        <h2>Welcome, User!</h2>
+        <h2>Welcome, Jason!</h2>
         <p>Upload your statement(s) and track your spending!</p>
         <input
           type="file"

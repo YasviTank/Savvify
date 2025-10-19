@@ -31,34 +31,35 @@ function Navbar() {
   const activeStyle = {
     color: "#fff",
     fontWeight: 600,
-    borderBottom: "2px solid #4a6cf7", // subtle bottom border for active link
+    borderBottom: "2px solid #4a6cf7",
     paddingBottom: "2px",
   };
 
+  // Add Learn page link
+  const paths = ["/", "/dashboard", "/learn", "/login"];
+  const names = ["Home", "Dashboard", "Learn", "Login/Signup"];
+
   return (
     <nav style={navStyle}>
-      <div style={{ fontWeight: "bold", fontSize: "1.5rem" }}>💰 Savify</div>
+      <div style={{ fontWeight: "bold", fontSize: "1.5rem" }}>💸 Savvify</div>
       <div style={{ display: "flex", gap: "1.8rem", alignItems: "center" }}>
-        {["/", "/dashboard", "/login"].map((path, index) => {
-          const names = ["Home", "Dashboard", "Login/Signup"];
-          return (
-            <Link
-              key={index}
-              to={path}
-              style={location.pathname === path ? {...linkStyle, ...activeStyle} : linkStyle}
-              onMouseOver={(e) => {
-                e.target.style.color = linkHover.color;
-                e.target.style.transform = linkHover.transform;
-              }}
-              onMouseOut={(e) => {
-                e.target.style.color = location.pathname === path ? "#fff" : "#ccc";
-                e.target.style.transform = "scale(1)";
-              }}
-            >
-              {names[index]}
-            </Link>
-          );
-        })}
+        {paths.map((path, index) => (
+          <Link
+            key={index}
+            to={path}
+            style={location.pathname === path ? { ...linkStyle, ...activeStyle } : linkStyle}
+            onMouseOver={(e) => {
+              e.target.style.color = linkHover.color;
+              e.target.style.transform = linkHover.transform;
+            }}
+            onMouseOut={(e) => {
+              e.target.style.color = location.pathname === path ? "#fff" : "#ccc";
+              e.target.style.transform = "scale(1)";
+            }}
+          >
+            {names[index]}
+          </Link>
+        ))}
       </div>
     </nav>
   );

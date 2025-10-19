@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup"; // add this
 import Chatbot from "./pages/Chatbot";
 import ChatbotWidget from "./components/ChatbotWidget"; // import the widget
+import Learn from "./pages/Learn";
 
 
 
@@ -21,7 +22,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} /> {/* add this */}
-        {/* <Route path  */}
+        <Route path="/learn" element={<Learn />} />
       </Routes>
 
       {/* Include chatbot here so it floats on all pages */}
