@@ -1,4 +1,5 @@
 import requests
+from wenyepython import main
 import PyPDF2
 import io
 from flask import Flask, request, send_file, render_template_string, jsonify
@@ -48,23 +49,20 @@ def simulate():
         "final_debt": round(debt, 2)
     })
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
 
 @app.route('/')
 def index():
     return send_file('index.html')
+
 @app.route('/data')
 def data():
     chart_data_no_debt = {
-        "labels": ["Living Expences","Entertainment","Savings/Investments","Debt Repayment"],
-        "values":[50,30,20,0] 
+        "labels": names,
+        "values": percents
     }
-    chart_data_with_debt = {
-        "labels": ["Living Expences","Entertainment","Savings/Investments","Debt Repayment"],
-        "values":[50,15,5,30] 
-    }
-    return jsonify(chart_data_no_debt,chart_data_with_debt)
-if __name__ == "main":
+    return jsonify(chart_data_no_debt)
+
+
+if __name__ == "__main__":
     app.run(debug=True)
+    names, percents = main.main()
