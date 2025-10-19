@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from wenyepython import main
 import requests
 import os
 from flask_cors import CORS
@@ -24,10 +25,14 @@ def upload_files():
         file.save(filepath)
         saved_files.append(file.filename)
 
-    return jsonify({
-        "message": f"{len(saved_files)} file(s) uploaded successfully.",
-        "files": saved_files
-    })
+    names, percentages = main.main(filepath)
+
+    chart_data_no_debt = {
+        "labels": names,
+        "values": percentages
+    }
+
+    return jsonify(chart_data_no_debt)
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 @app.route('/simulate', methods=['GET'])
