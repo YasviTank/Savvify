@@ -8,6 +8,7 @@ import Chatbot from "./pages/Chatbot";
 import ChatbotWidget from "./components/ChatbotWidget"; // import the widget
 
 
+
 // inside <Routes>
 <Route path="/chatbot" element={<Chatbot />} />
 
