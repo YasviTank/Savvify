@@ -1,4 +1,4 @@
-# 💰 Savify  
+# 💸 Savify  
 > *Your personal finance companion — learn, track, and manage your money smarter.*
 
 ![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)
@@ -35,7 +35,7 @@ It’s designed to make **financial literacy** simple, interactive, and accessib
 **Backend:**  
 - 🐍 Flask (Python)  
 - 🤖 OpenAI API  
-- 🔥 Firebase (optional authentication)  
+ 
 
 ---
 
