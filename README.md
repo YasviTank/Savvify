@@ -4,8 +4,7 @@
 ![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)
 ![Flask](https://img.shields.io/badge/Backend-Flask-black?logo=flask)
 ![OpenAI](https://img.shields.io/badge/API-OpenAI-lightblue?logo=openai)
-![Firebase](https://img.shields.io/badge/Auth-Firebase-orange?logo=firebase)
-![License](https://img.shields.io/badge/License-MIT-green)
+
 
 ---
 
