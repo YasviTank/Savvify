@@ -1,5 +1,5 @@
 # 💸 Savify  
-> *Your personal finance companion — learn, track, and manage your money smarter.*
+> *Your personal finance companion — learn, track, and manage your money smarter!*
 
 ![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)
 ![Flask](https://img.shields.io/badge/Backend-Flask-black?logo=flask)
